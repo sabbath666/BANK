@@ -1,0 +1,66 @@
+server:
+  port: 8888
+
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: client-service-route
+          uri: 'lb://clientservice'
+          predicates:
+            - 'Path=/api/v1/client/**'
+          filters:
+            - RewritePath=/api/v1/client/(?<path>.*), /$\{path}
+
+        - id: credit-service-route
+          uri: 'lb://creditservice'
+          predicates:
+            - 'Path=/api/v1/credit/**'
+          filters:
+            - RewritePath=/api/v1/credit/(?<path>.*), /$\{path}
+
+        - id: check-service-route
+          uri: 'lb://checkservice'
+          predicates:
+            - 'Path=/api/v1/check/**'
+          filters:
+            - RewritePath=/api/v1/check/(?<path>.*), /$\{path}
+
+        - id: bank-service-route
+          uri: 'lb://bankservice'
+          predicates:
+            - 'Path=/api/v1/bank/**'
+          filters:
+            - RewritePath=/api/v1/bank/(?<path>.*), /$\{path}
+
+    consul:
+      host: localhost
+      port: 8500
+
+  zipkin:
+    base-url: http://localhost:9411
+  sleuth:
+    sampler:
+      probability: 1
+
+management:
+  endpoint:
+    prometheus:
+      enabled: true
+    metrics:
+      enabled: true
+
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+#logging:
+#  config: 'classpath:log4j2.yml'
+

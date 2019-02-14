@@ -1,0 +1,231 @@
+* {
+    font-family: sans-serif;
+}
+
+.info-table td {
+    vertical-align: top;
+}
+
+.ui-datatable thead th {
+    font-size: medium;
+}
+
+.info-sub-table {
+    color: black;
+    font-size: 10pt;
+    border: 2px groove lightgrey;
+    border-radius: 5px;
+    padding: 0 5px;
+    margin: 5px;
+}
+
+.norm-panel-grid tr {
+    background: transparent;
+    border: none;
+}
+
+.ui-panelgrid .ui-panelgrid-cell {
+    font-size: 16px;
+}
+
+.white-text-in-rows tr {
+    color: white;
+}
+
+.header-text {
+    width: 100%;
+    display: block;
+}
+
+.cib-style {
+    background-color: #FFFFFF;
+    margin: 5px 10px 10px 10px;
+    border-radius: 10px;
+    padding-top: 5px;
+}
+
+.myfieldset {
+    display: inline-block;
+    background: #faffe3;
+    width: 99%;
+    border-radius: 5px;
+    color: black;
+    font-family: arial;
+    margin: 0 0 5px 0;
+    padding: 0px 5px 5px 5px;
+}
+
+.bad-line td {
+    background-color: #ffe0e7;
+}
+
+.mid-line td {
+    background-color: #F9F5AF;
+}
+
+.good-line td {
+    background-color: #a7eaa2;
+}
+
+.hide-column-names table thead tr {
+    display: none;
+}
+
+#profileGroup {
+    padding: 2px 5px 5px;
+    margin-bottom: 10px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-top: none;
+    background-color: lightgrey;
+}
+
+.ui-fileupload-content .ui-progressbar {
+    width: 0px;
+    height: 0px;
+    margin: 0
+}
+
+.ui-fileupload .start {
+    display: none;
+}
+
+.ui-fileupload .cancel {
+    display: none;
+}
+
+.ui-fileupload .progress {
+    display: none;
+}
+
+.myfieldset {
+    display: inline-block;
+    border-radius: 10px;
+    color: white;
+    text-shadow: 1px 1px 0px darkgreen;
+    font-family: arial;
+    margin: 0 0 5px 0;
+    padding: 0px 10px 5px 15px;
+    border: 2px groove lightgray;
+}
+
+.white-text-in-rows tr {
+    color: white;
+    text-shadow: 1px 1px 0px darkgreen;
+}
+
+.norm-panel-grid-col {
+    padding: 2px 4px;
+    background-color: inherit;
+}
+
+.border-collapse {
+    border-collapse: collapse;
+}
+
+.font-size-small {
+    font-size: small;
+}
+
+.font-size-big {
+    font-size: 20px;
+}
+
+.vert-align-bottom {
+    vertical-align: bottom;
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+.padding-left-10 {
+    padding-left: 10px;
+}
+
+.font-weight-bold {
+}
+
+.ui-menu-list .ui-menuitem {
+    margin: 0 3px;
+}
+
+.greenRow {
+    background-color: #d0ff8c;
+}
+
+.yellowRow {
+    background-color: #fdff8c;
+}
+
+.redRow {
+    background-color: #ffacac;
+}
+
+.ui-datatable {
+    display: table;
+    background-image: none;
+}
+
+.noBorders tr, .noBorders td {
+    background: none !important;
+    border: none !important;
+}
+
+.selectedMenuItem {
+    font-weight: bold !important;
+}
+
+tr.ui-widget-content.ui-datatable-odd,
+tr.ui-widget-content.ui-datatable-even {
+    background-image: none;
+}
+
+.ui-widget input {
+    width: 100%;
+    background-color: #d0ff8c;
+}
+
+.selectInFilter label {
+    background-color: #d0ff8c;
+}
+
+.selectInFilter {
+    width: 82%;;
+}
+
+.ui-datatable.ui-corner-all table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.ui-datatable.ui-corner-all table tr:first-child th:first-child {
+    -webkit-border-radius: 6px 0 0 0;
+    -moz-border-radius: 6px 0 0 0;
+    border-radius: 6px 0 0 0;
+}
+
+.ui-datatable.ui-corner-all table tr:first-child th:last-child {
+    -webkit-border-radius: 0 6px 0 0;
+    -moz-border-radius: 0 6px 0 0;
+    border-radius: 0 6px 0 0;
+}
+
+.ui-datatable.ui-corner-all table tr:first-child th:only-child {
+    -webkit-border-radius: 6px 6px 0 0;
+    -moz-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+}
+
+.ui-datatable.ui-corner-all table tbody td {
+    border-top: 0;
+}
+
+.ui-datatable.ui-corner-all table tr td:not(:first-child),
+.ui-datatable.ui-corner-all table tr th:not(:first-child) {
+    border-left: none;
+}
+
+.ui-accordion-header.ui-helper-reset.ui-state-default.ui-state-active.ui-corner-top {
+    border: none;
+}

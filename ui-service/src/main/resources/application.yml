@@ -1,0 +1,27 @@
+server:
+  port: 9999
+jsf:
+  adminfaces:
+    skin: skin-blue
+  primefaces:
+    theme: admin
+    font-awesome: true
+  datetimeconverter-default-timezone-is-system-timezone: true
+spring:
+  application:
+    name: uiservice
+  profiles:
+    active: dev
+gateway:
+  uri: http://localhost:8888/api/v1
+
+logging:
+  config: classpath:log4j2.yml
+  level:
+    #    org.springframework: TRACE
+    org.springframework.http: TRACE
+#    org.springframework.web: TRACE
+#    org.springframework.security: TRACE
+
+
+#logging:

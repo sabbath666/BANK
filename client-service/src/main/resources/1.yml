@@ -1,0 +1,50 @@
+Configuration:
+  Appenders:
+    Gelf:
+      Field:
+        -
+      _name: timestamp
+        _pattern:
+        -
+      _name: level
+        _pattern: "%level"
+        -
+      _name: simpleClassName
+        _pattern: "%C{1}"
+        -
+      _name: className
+        _pattern: "%C"
+        -
+      _name: server
+        _pattern: "%host"
+        -
+      _name: "server.fqdn"
+        _pattern: "%host{fqdn}"
+        -
+      _name: fieldName2
+        _literal: fieldValue2
+        -
+      _name: mdcField2
+        _mdc: mdcField2
+      DynamicMdcFields:
+        -
+      _regex: "mdc.*"
+        -
+      _regex: "(mdc|MDC)fields"
+      _name: gelf
+      _host: "udp:localhost"
+      _port: 12201
+      _version: "1.1"
+      _extractStackTrace: true
+      _filterStackTrace: true
+      _mdcProfiling: true
+      _includeFullMdc: true
+      _maximumMessageSize: 8192
+      _originHost: "%host{fqdn}"
+      _additionalFieldTypes: "fieldName1=String,fieldName2=Double,fieldName3=Long"
+  Loggers:
+    Root:
+      AppenderRef:
+        _ref: gelf
+      _level: INFO
+  _packages: "biz.paluch.logging.gelf.log4j2"

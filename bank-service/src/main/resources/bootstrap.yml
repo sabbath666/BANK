@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: bankservice
+  profiles:
+    active: dev
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        instance-id: ${spring.application.name}:${random.uuid}
+#      config:
+#        enabled: true
+#        format: yaml
+#    config:
+#      enabled: false
+management:
+  endpoint:
+    prometheus:
+      enabled: true
+    metrics:
+      enabled: true
+
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+metrics:
+  web:
+    server:
+      auto-time-requests: true
+  export:
+    prometheus:
+      enabled: true
+  distribution:
+    percentiles-histogram:
+      http.server.requests: true
+logging:
+  config: 'classpath:log4j2.yml'
+
+

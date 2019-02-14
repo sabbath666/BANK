@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="templates/EISGSMenuItemTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+    <ui:define name="inHead">
+        <title>Клиенты</title>
+        <h:outputScript library="js" name="PrimeFacesRuLocale.js"/>
+    </ui:define>
+
+    <ui:define name="menuItemContent">
+
+        <h:form id="creditsForm" style="width: 100%">
+            <h:panelGroup id="creditsPanelGroup" style="width: 100%"
+                          layout="block">
+                <h:panelGroup id="creditsMessages"
+                              layout="block">
+                    <p:messages showDetail="true" globalOnly="true"/>
+                </h:panelGroup>
+
+                <p:dataTable
+                        var="credit" value="#{creditsBean.credits}"
+                        id="creditsTable"
+                        widgetVar="creditsTableWV"
+                        lazy="true"
+                        editable="true"
+                        editMode="cell"
+                        rowIndexVar="index"
+                        paginator="true"
+                        rows="10"
+                        paginatorPosition="bottom"
+                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}  Строк в странице: {RowsPerPageDropdown} {JumpToPageDropdown}"
+                        currentPageReportTemplate="Просмотр {startRecord} - {endRecord} из {totalRecords}"
+                        rowsPerPageTemplate="10,15,20"
+                        sortMode="multiple"
+                        resizableColumns="true"
+                        multiViewState="true"
+                        emptyMessage="нет данных, нажмите ввести данные, чтобы начать"
+                >
+                    <f:facet name="header">
+                        <h:panelGroup layout="block"
+                                      style="display: inline-block;
+                                      width: 100%;">
+                            <p:outputLabel>
+                            </p:outputLabel>
+
+                            <p:commandButton icon="ui-icon-refresh"
+                                             actionListener="${creditsBean.update()}"
+                                             update=":creditsForm :creditsForm:creditsTable"
+                                             style="float:right;
+                                             height: 26px;
+                                             width: 29px;
+                                             outline: none;"/>
+                        </h:panelGroup>
+                    </f:facet>
+                    <p:column style="width: 5%" headerText="clientId">
+                        <h:outputText value="#{credit.clientId}"/>
+                    </p:column>
+                    <p:column style="width: 5%" headerText="сумма">
+                        <h:outputText value="#{credit.sum}"/>
+                    </p:column>
+                    <p:column style="width: 5%" headerText="статус">
+                        <h:outputText value="#{credit.status}"/>
+                    </p:column>
+                    <p:column style="width: 5%" headerText="комментарий">
+                        <h:outputText value="#{credit.message}"/>
+                    </p:column>
+                </p:dataTable>
+
+            </h:panelGroup>
+            <!--   <h:panelGrid columns="2" style="border: none;">
+                   <p:commandButton id="inputPPBtn" value="Ввести данные"
+                                    oncomplete="PF('inputDialog').show();">
+                   </p:commandButton>
+
+                   <p:commandButton id="updateBtn" value="Обновить"
+                                    actionListener="#{requestBean.update()}"
+                                    update=":creditsForm:creditsPanelGroup"
+                                    ajax="false">
+                   </p:commandButton>
+               </h:panelGrid>
+   -->
+        </h:form>
+
+        <p:dialog id="inputDialogId"
+                  widgetVar="inputDialog"
+                  header="Ввод данных по застройщику"
+                  modal="true"
+                  width="450"
+                  positionType="absolute"
+                  resizable="false"
+                  closable="false"
+                  onShow="PF('inputDialog').initPosition();"
+                  position="center top">
+            <h:form id="inputDialogForm"
+                    style="
+                    margin:  5px 5px 5px 5px;
+                    border-radius: 10px;
+                    padding: 5px;">
+                <p:blockUI block="inputDialogForm"
+                           widgetVar="inputDialogFormBlock">
+                    <p:graphicImage name="ajax-loader.gif"
+                                    library="images"/>
+                </p:blockUI>
+                <h:panelGroup id="inputDialogGroup" layout="block">
+                    <h:panelGroup id="inputDialogActionGroup" layout="inline-block">
+                        <h:panelGroup layout="inline-block"
+                                      style="
+                                      display: inline-block;
+                                      margin: 5px 0px;">
+                            <h:panelGroup id="first" layout="block"
+                                          style="display: inline-block">
+                                <h:outputText value="Наименование застройщика"/>
+                                <p:inputText id="inputDialogName"
+                                             maxlength="30"
+                                             size="30"
+                                             value="#{requestBean.packageRequestDTO.buildName}">
+                                </p:inputText>
+                            </h:panelGroup>
+                            <h:panelGroup id="second" layout="block"
+                                          style=" display: inline-block">
+                                <h:outputText value="Дата разрешения на строительство"/>
+                                <p:calendar size="10"
+                                            value="#{requestBean.packageRequestDTO.buildPermitDate}"
+                                            pattern="dd.MM.yyyy"
+                                            locale="ru"
+                                            navigator="true"
+                                            effectDuration="fast">
+                                </p:calendar>
+                            </h:panelGroup>
+                            <h:panelGroup id="third" layout="block"
+                                          style="display: inline-block">
+                                <h:outputText value="Номер разрешения на строительство"/>
+                                <p:inputText id="inputDialogNumberId"
+                                             maxlength="30"
+                                             size="30"
+                                             value="#{requestBean.packageRequestDTO.buildPermitNumber}">
+                                </p:inputText>
+                            </h:panelGroup>
+                        </h:panelGroup>
+                        <h:panelGroup id="inputDialogMessages"
+                                      layout="block">
+                            <p:message for="inputDialogNumberId"/>
+                            <p:messages showDetail="true" globalOnly="true"/>
+                        </h:panelGroup>
+                        <h:panelGroup id="inputButtons"
+                                      layout="block">
+                            <p:commandButton value="ОК"
+                                             action="#{requestBean.getPackage}"
+                                             update="@all"
+                                             onclick="PF('inputDialog').hide();"/>
+                            <h:panelGroup layout="block"
+                                          style="display: inline-block;
+                                          float:right;">
+                                <p:commandButton value="Отмена"
+                                                 update="@all"
+                                                 onclick="PF('inputDialog').hide();"/>
+                            </h:panelGroup>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:define>
+</ui:composition>

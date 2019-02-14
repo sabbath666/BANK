@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+
+  zipkin:
+#    network_mode: host
+    image: openzipkin/zipkin:2.12
+    container_name: zipkin
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      STORAGE_TYPE: mem
+    ports:
+      - "9411:9411"
+
+
+

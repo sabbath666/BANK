@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: emulatorservice
+  profiles:
+    active: dev
+#  cloud:
+#    consul:
+#      host: localhost
+#      port: 8500
+#      discovery:
+#        instance-id: ${spring.application.name}:${random.uuid}
+#      config:
+#        enabled: true
+#        format: yaml
+#    config:
+#      enabled: false
+logging:
+  config: 'classpath:log4j2.yml'
+#sentry:
+#  dsn: "http://4aab3cb2ac70479ba33eeb4f4fdba1b8@localhost:9010/2"
+
+

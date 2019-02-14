@@ -1,0 +1,176 @@
+version: '3'
+networks:
+  sabbath-net:
+    driver: bridge
+
+services:
+
+  #  smashing:
+  #    network_mode: host
+  #    image: visibilityspots/smashing
+  #    container_name: smashing
+  #    volumes:
+  #      - /etc/localtime:/etc/localtime:ro
+  #    #      - ./smashing:/dashboards
+  #    restart: always
+  #    ports:
+  #      - 3030:3030
+
+  #  docker run -d -p 8400:8400 -p 8500:8500/tcp -p 8600:53/udp
+  #  -e 'CONSUL_LOCAL_CONFIG={"acl_datacenter":"dc1","acl_default_policy":"deny","acl_down_policy":"extend-cache","acl_master_token":"the_one_ring","bootstrap_expect":1,"datacenter":"dc1","data_dir":"/usr/local/bin/consul.d/data","server":true}' consul agent -server -bind=127.0.0.1 -client=0.0.0.0
+  #
+  consul:
+    #    network_mode: host
+    image: consul:1.4.2
+    container_name: consul
+    volumes:
+      - ./consul/data:/data
+      - /etc/localtime:/etc/localtime:ro
+    #    networks:
+    #      - sabbath-net
+    ports:
+      - "8400:8400"
+      - "8500:8500/tcp"
+      - "8600:853/udp"
+    expose:
+      - "8400"
+      - "8500/tcp"
+      - "53/udp"
+    command:
+      'agent -server -bootstrap-expect=1 -ui -data-dir=/data -client=0.0.0.0 -bind=0.0.0.0'
+    restart: always
+
+  #  consul_exporter:
+  #    network_mode: host
+  #    image: prom/consul-exporter
+  #    container_name: consul_exporter
+  #    volumes:
+  #      - /etc/localtime:/etc/localtime:ro
+  #    restart: always
+
+  postgres:
+    image: postgres:11
+    container_name: postgres
+    #    network_mode: host
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    restart: always
+
+  prometheus:
+    #    network_mode: host
+    image: prom/prometheus:v2.4.3
+    container_name: prometheusdocker
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/rules.yml:/etc/prometheus/rules.yml
+      - ./prometheus/prometheus_data:/prometheus
+      - /etc/localtime:/etc/localtime:ro
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      #      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention=200h'
+      - '--web.enable-lifecycle'
+    #    restart: unless-stopped
+    restart: always
+    ports:
+      - "9090:9090"
+  #    networks:
+  #      - sabbath-net
+
+  alertmanager:
+    container_name: alertmanager
+    #    network_mode: host
+    image: prom/alertmanager:v0.16.1
+    volumes:
+      - ./prometheus/alertmanager.yml:/prometheus/alertmanager.yml
+      - ./prometheus/alertmanager_data:/data
+    command:
+      - '--config.file=/prometheus/alertmanager.yml'
+      - '--storage.path=/data'
+    ports:
+      - 9093:9093
+    restart: always
+  #    networks:
+  #      - sabbath-net
+
+  prometheusdb:
+    #    network_mode: host
+    image: timescale/pg_prometheus:0.2.1
+    ports:
+      - "5434:5432"
+    container_name: prometheusdb
+    volumes:
+      - ./prometheus/prometheusdb:/var/lib/postgresql/data
+      - /etc/localtime:/etc/localtime:ro
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    command:
+      - 'postgres'
+      - '-csynchronous_commit=off'
+
+  prometheus_db_adapter:
+    #    network_mode: host
+    image: timescale/prometheus-postgresql-adapter:master
+    ports:
+      - "9201:9201"
+    container_name: prometheus_db_adapter
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    restart: always
+    command:
+      - '-pg.host=prometheusdb'
+      - '-pg.port=5432'
+      - '-pg.prometheus-log-samples'
+      - '-pg.password=postgres'
+      - '-pg.user=postgres'
+
+  grafana:
+    #    network_mode: host
+    image: grafana/grafana:5.3.2
+    container_name: grafana
+    volumes:
+      - ./grafana/grafana_data:/var/lib/grafana
+      - ./grafana/datasources:/etc/grafana/datasources
+      - ./grafana/dashboards:/etc/grafana/dashboards
+      - ./grafana/setup.sh:/setup.sh
+      - /etc/localtime:/etc/localtime:ro
+    #    entrypoint: /setup.sh
+    restart: always
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+
+#  nodeexporter:
+#    network_mode: host
+#    image: prom/node-exporter:latest
+#    container_name: nodeexporter
+#    user: root
+#    privileged: true
+#    volumes:
+#      - /proc:/host/proc:ro
+#      - /sys:/host/sys:ro
+#      - /:/rootfs:ro
+#      - /etc/localtime:/etc/localtime:ro
+#    command:
+#      - '--path.procfs=/host/proc'
+#      - '--path.sysfs=/host/sys'
+#      - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'
+#    restart: always
+#    expose:
+#      - 9100
+#    ports:
+#      - "9100:9100"
+#    networks:
+#      - monitor-net
+

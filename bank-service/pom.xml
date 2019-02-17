@@ -207,7 +207,11 @@
                         <image>openjdk:8-alpine</image>
                     </from>
                     <to>
-                        <image>${project.artifactId}</image>
+                        <auth>
+                            <username>sabbath666</username>
+                            <password>${env.PASSWORD}</password>
+                        </auth>
+                        <image>sabbath666/${project.artifactId}</image>
                     </to>
                 </configuration>
             </plugin>

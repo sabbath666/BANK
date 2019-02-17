@@ -155,6 +155,28 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>0.10.1</version>
+                <configuration>
+                    <from>
+                        <auth>
+                            <username>sabbath666</username>
+                            <password>${env.PASSWORD}</password>
+                        </auth>
+                        <image>openjdk:8-alpine</image>
+                    </from>
+                    <to>
+                        <auth>
+                            <username>sabbath666</username>
+                            <password>${env.PASSWORD}</password>
+                        </auth>
+                        <image>sabbath666/${project.artifactId}</image>
+                    </to>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 

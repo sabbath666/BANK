@@ -12,6 +12,14 @@ spring:
           enabled: true
           lower-case-service-id: true
       routes:
+
+        - id: ui-service-route
+          uri: 'lb://ui-service'
+          predicates:
+            - 'Path=/api/v1/ui/**'
+          filters:
+            - RewritePath=/api/v1/ui/(?<path>.*), /$\{path}
+
         - id: client-service-route
           uri: 'lb://clientservice'
           predicates:

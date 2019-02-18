@@ -3,13 +3,13 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="templates/EISGSMenuItemTemplate.xhtml"
+                template="templates/BANKMenuItemTemplate.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
 >
 
     <ui:define name="inHead">
-        <title>Нецелевое использование</title>
+        <title>Баланс</title>
         <h:outputScript library="js" name="PrimeFacesRuLocale.js"/>
     </ui:define>
 
@@ -22,218 +22,22 @@
                               layout="block">
                     <p:messages showDetail="true" globalOnly="true"/>
                 </h:panelGroup>
-                <h:outputText value="#{bankBean.balance}"/>
-                <p:commandButton icon="ui-icon-refresh"
-                                 actionListener="${bankBean.update()}"
-                                 update=":registryForm"
-                                 style="float:right;
-                                             height: 26px;
-                                             width: 29px;
-                                             outline: none;"/>
-                <!--
-                                <p:dataTable
-                                        var="misuses" value="#{misuseBean.misuses}"
-                                        id="misusesTable"
-                                        widgetVar="registryTableWV"
-                                        lazy="true"
-                                        editable="true"
-                                        editMode="cell"
-                                        rowIndexVar="index"
-                                        paginator="true"
-                                        rows="10"
-                                        paginatorPosition="bottom"
-                                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}  Строк в странице: {RowsPerPageDropdown} {JumpToPageDropdown}"
-                                        currentPageReportTemplate="Просмотр {startRecord} - {endRecord} из {totalRecords}"
-                                        rowsPerPageTemplate="10,15,20"
-                                        sortMode="multiple"
-                                        resizableColumns="true"
-                                        multiViewState="true"
-                                        emptyMessage="нет данных, нажмите ввести данные, чтобы начать"
-                                >
-                                    <f:facet name="header">
-                                        <h:panelGroup layout="block"
-                                                      style="display: inline-block;
-                                                      width: 100%;">
-                                            <p:outputLabel>
-                                            </p:outputLabel>
 
-                                            <p:commandButton icon="ui-icon-refresh"
-                                                             update=":registryForm :registryForm:misusesTable"
-                                                             style="float:right;
-                                                             height: 26px;
-                                                             width: 29px;
-                                                             outline: none;"/>
-                                        </h:panelGroup>
-                                    </f:facet>
-                                    <p:column style="width: 5%" headerText="номер разрешения">
-                                        <h:outputText value="#{misuses.buildNumber}"/>
-                                    </p:column>
-                                    <p:column style="width: 5%" headerText="дата разрешения">
-                                        <h:outputText value="#{misuses.buildDate}">
-                                            <f:convertDateTime pattern="dd.MM.yyyy"/>
-                                        </h:outputText>
-                                    </p:column>
-                                    <p:column style="width: 5%" headerText="застройщик">
-                                        <h:outputText value="#{misuses.buildName}"/>
-                                    </p:column>
-                                    <p:column headerText="дата создания" style="width: 5%">
-                                        <h:outputText value="#{misuses.dateCrt}">
-                                            <f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
-                                        </h:outputText>
-                                    </p:column>
-                                    <p:column headerText="статус" style="width: 5%">
-                                        <h:outputText value="#{misuses.status.message}"/>
-                                    </p:column>
-                                    <p:column headerText="комментарии" style="width: 5%">
-                                        <h:outputText value="#{misuses.message}"/>
-                                    </p:column>
-                                </p:dataTable>
-                -->
+                <h:panelGrid columns="1" style="border: none;">
+                    <h:outputText value="#{bankBean.balance}" style="font-size: 50px"/>
+
+                    <p:commandButton id="updateBtn" value="Обновить"
+                                     actionListener="#{bankBean.update}"
+                                     update=":clientsForm :clientsForm:clientsTable"
+                                     ajax="false">
+                    </p:commandButton>
+                </h:panelGrid>
+
 
             </h:panelGroup>
-            <!--<h:panelGrid columns="2" style="border: none;">
-                <p:commandButton id="inputPPBtn" value="Добавить уведомление"
-                                 oncomplete="PF('inputDialog').show();">
-                </p:commandButton>
-
-                <p:commandButton id="updateBtn" value="Обновить"
-                                 actionListener="#{misuseBean.update()}"
-                                 update=":registryForm:registryPanelGroup"
-                                 ajax="false">
-                </p:commandButton>
-            </h:panelGrid>-->
 
         </h:form>
 
-        <p:dialog id="inputDialogId"
-                  widgetVar="inputDialog"
-                  header="Ввод уведомления о нецелевом использовании"
-                  modal="true"
-                  width="450"
-                  resizable="false"
-                  closable="false"
-                  position="center top">
-            <h:form id="inputDialogForm"
-                    style="
-                    margin:  5px 5px 5px 5px;
-                    border-radius: 10px;
-                    padding: 5px;">
-                <p:blockUI block="inputDialogForm"
-                           widgetVar="inputDialogFormBlock">
-                    <p:graphicImage name="ajax-loader.gif"
-                                    library="images"/>
-                </p:blockUI>
-                <h:panelGroup id="inputDialogGroup" layout="block">
-                    <h:panelGroup id="inputDialogActionGroup" layout="inline-block">
-                        <h:panelGroup layout="inline-block"
-                                      style="
-                                      display: inline-block;
-                                      margin: 5px 0px;">
-                            <h:panelGroup id="first" layout="block"
-                                          style="display: inline-block">
-                                <h:outputText value="Наименование застройщика"/>
-                                <p:inputText id="inputDialogName"
-                                             maxlength="30"
-                                             size="30"
-                                             value="#{misuseBean.misuseRequestDTO.buildName}">
-                                </p:inputText>
-                            </h:panelGroup>
-                            <h:panelGroup id="second" layout="block"
-                                          style=" display: inline-block">
-                                <h:outputText value="Дата разрешения на строительство"/>
-                                <p:calendar size="10"
-                                            value="#{misuseBean.misuseRequestDTO.buildPermitDate}"
-                                            pattern="dd.MM.yyyy"
-                                            locale="ru"
-                                            navigator="true"
-                                            effectDuration="fast">
-                                </p:calendar>
-                            </h:panelGroup>
-
-                            <h:panelGroup id="third" layout="block"
-                                          style="display: inline-block">
-                                <h:outputText value="Номер разрешения на строительство"/>
-                                <p:inputText id="inputDialogNumberId"
-                                             maxlength="30"
-                                             size="30"
-                                             value="#{misuseBean.misuseRequestDTO.buildPermitNumber}">
-                                </p:inputText>
-                            </h:panelGroup>
-
-                            <h:panelGroup layout="block"
-                                          style="display: inline-block">
-                                <h:outputText value="Номер платежного документа"/>
-                                <p:inputText maxlength="30"
-                                             size="30"
-                                             value="#{misuseBean.misuseRequestDTO.paymentDocumentNumber}">
-                                </p:inputText>
-                            </h:panelGroup>
-
-                            <h:panelGroup layout="block"
-                                          style=" display: inline-block">
-                                <h:outputText value="Дата платежного документа"/>
-                                <p:calendar size="10"
-                                            value="#{misuseBean.misuseRequestDTO.paymentDocumentDate}"
-                                            pattern="dd.MM.yyyy"
-                                            locale="ru"
-                                            navigator="true"
-                                            effectDuration="fast">
-                                </p:calendar>
-                            </h:panelGroup>
-
-
-                            <h:panelGroup layout="block"
-                                          style="display: inline-block">
-                                <h:outputText value="ID транзакции"/>
-                                <p:inputText maxlength="20"
-                                             size="10"
-                                             value="#{misuseBean.misuseRequestDTO.transactionId}">
-                                </p:inputText>
-                            </h:panelGroup>
-
-                            <h:panelGroup layout="block"
-                                          style="display: inline-block">
-                                <h:outputText value="Код операции"/>
-                                <p:inputText maxlength="20"
-                                             size="10"
-                                             value="#{misuseBean.misuseRequestDTO.operationCode}">
-                                </p:inputText>
-                            </h:panelGroup>
-
-                            <h:panelGroup layout="block"
-                                          style="display: inline-block">
-                                <h:outputText value="Основание платежа"/>
-                                <p:inputText maxlength="20"
-                                             size="10"
-                                             value="#{misuseBean.misuseRequestDTO.operationReason}">
-                                </p:inputText>
-                            </h:panelGroup>
-
-                        </h:panelGroup>
-                        <h:panelGroup id="inputDialogMessages"
-                                      layout="block">
-                            <p:message for="inputDialogNumberId"/>
-                            <p:messages showDetail="true" globalOnly="true"/>
-                        </h:panelGroup>
-                        <h:panelGroup id="inputButtons"
-                                      layout="block">
-                            <p:commandButton value="ОК"
-                                             action="#{misuseBean.sendMisuse}"
-                                             update="@all"
-                            />
-                            <h:panelGroup layout="block"
-                                          style="display: inline-block;
-                                          float:right;">
-                                <p:commandButton value="Отмена"
-                                                 update="@all"
-                                                 ajax="false"
-                                                 onclick="PF('inputDialog').hide();"/>
-                            </h:panelGroup>
-                        </h:panelGroup>
-                    </h:panelGroup>
-                </h:panelGroup>
-            </h:form>
-        </p:dialog>
 
     </ui:define>
 </ui:composition>

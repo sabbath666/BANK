@@ -17,6 +17,10 @@ services:
   gateway:
     image: sabbath666/gateway-service
     container_name: gateway-service
+    ports:
+      - 8888:8888
+    environment:
+      SPRING_CLOUD_CONSUL_HOST: consul
     volumes:
       - /etc/localtime:/etc/localtime:ro
     restart: always
@@ -24,6 +28,12 @@ services:
   ui-service:
     image: sabbath666/ui-service
     container_name: ui-service
+    environment:
+      SERVER_PORT: 9999
+      SPRING_CLOUD_CONSUL_HOST: consul
+      GATEWAY_URI: http://gateway:8888/api/v1
+    ports:
+      - 9999:9999
     volumes:
       - /etc/localtime:/etc/localtime:ro
     restart: always
@@ -31,6 +41,10 @@ services:
   client-service:
     image: sabbath666/client-service
     container_name: client-service
+    environment:
+      SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_PROFILES_ACTIVE: test
+      GATEWAY_URI: http://gateway:8888/api/v1
     volumes:
       - /etc/localtime:/etc/localtime:ro
     restart: always
@@ -38,6 +52,10 @@ services:
   bank-service:
     image: sabbath666/bank-service
     container_name: bank-service
+    environment:
+      SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_PROFILES_ACTIVE: test
+      GATEWAY_URI: http://gateway:8888/api/v1
     volumes:
       - /etc/localtime:/etc/localtime:ro
     restart: always
@@ -45,6 +63,10 @@ services:
   credit-service:
     image: sabbath666/credit-service
     container_name: credit-service
+    environment:
+      SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_PROFILES_ACTIVE: test
+      GATEWAY_URI: http://gateway:8888/api/v1
     volumes:
       - /etc/localtime:/etc/localtime:ro
     restart: always
@@ -52,19 +74,22 @@ services:
   check-service:
     image: sabbath666/check-service
     container_name: check-service
+    environment:
+      SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_PROFILES_ACTIVE: test
+      GATEWAY_URI: http://gateway:8888/api/v1
     volumes:
       - /etc/localtime:/etc/localtime:ro
     restart: always
 
-
   postgres:
     image: postgres:11
     container_name: postgres
-    ports:
-      - 5432:5432
     volumes:
       - ./postgres/data:/var/lib/postgresql/data
       - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 5432:5432
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres

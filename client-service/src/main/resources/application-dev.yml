@@ -7,7 +7,7 @@ spring:
     password: postgres
     hikari:
       maximum-pool-size: 5
-    url: 'jdbc:postgresql://localhost:5432/market'
+    url: 'jdbc:postgresql://localhost:5432/postgres'
   jpa:
     properties:
       hibernate:

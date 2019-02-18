@@ -3,10 +3,11 @@ spring:
     name: ui-service
   profiles:
     active: dev
-  cloud:
-    consul:
-      discovery:
-        instance-id: ${spring.application.name}:${random.uuid}
+
+#  cloud:
+#    consul:
+#      discovery:
+#        instance-id: ${spring.application.name}:${random.uuid}
 
 logging:
   config: 'classpath:log4j2.yml'

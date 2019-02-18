@@ -27,7 +27,7 @@ class ClientsBean {
     fun update() {
         try {
             clients.clear()
-            clients.addAll(userServiceClient.getAllClients()!!)
+            clients.addAll(userServiceClient.getAllClients())
         } catch (e: Exception) {
 
         }

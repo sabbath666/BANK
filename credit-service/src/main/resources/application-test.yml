@@ -7,7 +7,7 @@ spring:
     password: postgres
     hikari:
       maximum-pool-size: 5
-    url: 'jdbc:postgresql://localhost:5432/market'
+    url: 'jdbc:postgresql://postgres:5432/market'
   jpa:
     properties:
       hibernate:
@@ -15,9 +15,12 @@ spring:
         jdbc.lob.non_contextual_creation: true
         enable_lazy_load_no_trans: true
         current_session_context_class: thread
-#        generate_statistics: true
     hibernate:
       ddl-auto: create-drop
+
+gateway:
+  uri: http://gateway:8888/api/v1
+
 
 management:
   endpoint:
@@ -44,6 +47,3 @@ management:
 
 logging:
   config: 'classpath:log4j2.yml'
-
-my:
-  property: 'aaaaaaaaaaaaaaaaa'

@@ -3,14 +3,14 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="templates/EISGSMenuItemTemplate.xhtml"
+                template="templates/BANKMenuItemTemplate.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
 >
 
     <ui:define name="inHead">
-        <title>Клиенты</title>
+        <title>Кредиты</title>
         <h:outputScript library="js" name="PrimeFacesRuLocale.js"/>
     </ui:define>
 
@@ -50,13 +50,6 @@
                             <p:outputLabel>
                             </p:outputLabel>
 
-                            <p:commandButton icon="ui-icon-refresh"
-                                             actionListener="${creditsBean.update()}"
-                                             update=":creditsForm :creditsForm:creditsTable"
-                                             style="float:right;
-                                             height: 26px;
-                                             width: 29px;
-                                             outline: none;"/>
                         </h:panelGroup>
                     </f:facet>
                     <p:column style="width: 5%" headerText="clientId">
@@ -74,18 +67,19 @@
                 </p:dataTable>
 
             </h:panelGroup>
-            <!--   <h:panelGrid columns="2" style="border: none;">
+               <h:panelGrid columns="2" style="border: none;">
+<!--
                    <p:commandButton id="inputPPBtn" value="Ввести данные"
                                     oncomplete="PF('inputDialog').show();">
                    </p:commandButton>
+-->
 
                    <p:commandButton id="updateBtn" value="Обновить"
-                                    actionListener="#{requestBean.update()}"
-                                    update=":creditsForm:creditsPanelGroup"
+                                    actionListener="#{creditsBean.update()}"
+                                    update=":creditsForm :creditsForm:creditsTable"
                                     ajax="false">
                    </p:commandButton>
                </h:panelGrid>
-   -->
         </h:form>
 
         <p:dialog id="inputDialogId"

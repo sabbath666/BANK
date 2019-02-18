@@ -9,12 +9,8 @@ jsf:
     font-awesome: true
   datetimeconverter-default-timezone-is-system-timezone: true
 
-spring:
-  profiles:
-    active: dev
-
 gateway:
-  uri: http://localhost:8888/api/v1
+  uri: http://gateway:8888/api/v1
 
 logging:
   config: classpath:log4j2.yml

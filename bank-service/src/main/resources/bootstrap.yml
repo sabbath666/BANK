@@ -5,15 +5,9 @@ spring:
     active: dev
   cloud:
     consul:
-      host: localhost
-      port: 8500
       discovery:
         instance-id: ${spring.application.name}:${random.uuid}
-#      config:
-#        enabled: true
-#        format: yaml
-#    config:
-#      enabled: false
+
 management:
   endpoint:
     prometheus:

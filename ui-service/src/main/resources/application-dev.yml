@@ -1,0 +1,8 @@
+server:
+  port: 9999
+
+gateway:
+  uri: http://localhost:8888/api/v1
+
+logging:
+  config: classpath:log4j2.yml

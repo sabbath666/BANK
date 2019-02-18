@@ -6,7 +6,6 @@ import com.sabbath.client.jpa.ClientRepository
 import io.micrometer.core.instrument.Counter
 import org.slf4j.LoggerFactory
 import org.springframework.core.env.Environment
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
@@ -26,11 +25,11 @@ class ClientController(
     @PostMapping("/addClient")
     fun addUser(@RequestBody client: Client): Any? {
 
-        when (Random.nextInt(1, 3)) {
-            1 -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-            2 -> RuntimeException("не получилось добавить клиента")
-            else -> logger.info("добавление клиента $client")
-        }
+//        when (Random.nextInt(1, 3)) {
+//            1 -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//            2 -> RuntimeException("не получилось добавить клиента")
+//            else -> logger.info("добавление клиента $client")
+//        }
         clientRepository.save(client)
         return ResponseEntity.ok("")
     }

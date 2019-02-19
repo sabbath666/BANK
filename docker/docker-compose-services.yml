@@ -3,15 +3,13 @@ version: '3'
 services:
 
   consul:
-    image: consul:1.4.2
+    image: sabbath666/consul-server
     container_name: consul
     volumes:
       - ./consul/data:/data
       - /etc/localtime:/etc/localtime:ro
     ports:
-      - "8500:8500/tcp"
-    command:
-      'agent -server -bootstrap-expect=1 -ui -data-dir=/data -client=0.0.0.0 -bind=0.0.0.0'
+      - "8500:8500"
     restart: always
 
   gateway:
@@ -31,7 +29,7 @@ services:
     environment:
       SERVER_PORT: 9999
       SPRING_CLOUD_CONSUL_HOST: consul
-      GATEWAY_URI: http://gateway:8888/api/v1
+      GATEWAY_URI: http://gateway-service:8888/api/v1
     ports:
       - 9999:9999
     volumes:

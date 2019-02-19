@@ -14,7 +14,7 @@ class BankBean {
 
     @PostConstruct
     fun init() {
-        update()
+//        update()
     }
 
     fun update() {

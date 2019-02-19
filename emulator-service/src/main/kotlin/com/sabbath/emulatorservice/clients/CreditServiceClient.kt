@@ -14,7 +14,6 @@ class CreditServiceClient(
 ) {
 
     fun addRandomCredit() {
-        throw RuntimeException("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
         val random = Random()
         val clientId = getRandomClientId()
         restTemplate.postForObject(

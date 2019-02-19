@@ -68,11 +68,9 @@
 
             </h:panelGroup>
                <h:panelGrid columns="2" style="border: none;">
-<!--
-                   <p:commandButton id="inputPPBtn" value="Ввести данные"
+                   <p:commandButton id="inputPPBtn" value="Выдать кредит"
                                     oncomplete="PF('inputDialog').show();">
                    </p:commandButton>
--->
 
                    <p:commandButton id="updateBtn" value="Обновить"
                                     actionListener="#{creditsBean.update()}"
@@ -84,7 +82,7 @@
 
         <p:dialog id="inputDialogId"
                   widgetVar="inputDialog"
-                  header="Ввод данных по застройщику"
+                  header="Выдача кредита"
                   modal="true"
                   width="450"
                   positionType="absolute"
@@ -110,31 +108,20 @@
                                       margin: 5px 0px;">
                             <h:panelGroup id="first" layout="block"
                                           style="display: inline-block">
-                                <h:outputText value="Наименование застройщика"/>
+                                <h:outputText value="ID клиента"/>
                                 <p:inputText id="inputDialogName"
                                              maxlength="30"
                                              size="30"
-                                             value="#{requestBean.packageRequestDTO.buildName}">
+                                             value="#{creditsBean.newCreditClientId}">
                                 </p:inputText>
-                            </h:panelGroup>
-                            <h:panelGroup id="second" layout="block"
-                                          style=" display: inline-block">
-                                <h:outputText value="Дата разрешения на строительство"/>
-                                <p:calendar size="10"
-                                            value="#{requestBean.packageRequestDTO.buildPermitDate}"
-                                            pattern="dd.MM.yyyy"
-                                            locale="ru"
-                                            navigator="true"
-                                            effectDuration="fast">
-                                </p:calendar>
                             </h:panelGroup>
                             <h:panelGroup id="third" layout="block"
                                           style="display: inline-block">
-                                <h:outputText value="Номер разрешения на строительство"/>
+                                <h:outputText value="Сумма"/>
                                 <p:inputText id="inputDialogNumberId"
                                              maxlength="30"
                                              size="30"
-                                             value="#{requestBean.packageRequestDTO.buildPermitNumber}">
+                                             value="#{creditsBean.newCreditSum}">
                                 </p:inputText>
                             </h:panelGroup>
                         </h:panelGroup>
@@ -146,13 +133,15 @@
                         <h:panelGroup id="inputButtons"
                                       layout="block">
                             <p:commandButton value="ОК"
-                                             action="#{requestBean.getPackage}"
+                                             ajax="false"
+                                             action="#{creditsBean.addCredit}"
                                              update="@all"
-                                             onclick="PF('inputDialog').hide();"/>
+                                             />
                             <h:panelGroup layout="block"
                                           style="display: inline-block;
                                           float:right;">
                                 <p:commandButton value="Отмена"
+                                                 ajax="false"
                                                  update="@all"
                                                  onclick="PF('inputDialog').hide();"/>
                             </h:panelGroup>

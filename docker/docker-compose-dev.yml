@@ -3,10 +3,10 @@ version: '3'
 services:
 
   consul:
-    image: consul:1.4.2
+    image: sabbath666/consul-server
     container_name: consul
     volumes:
-      - ./consul/data:/data
+#      - ./consul/data:/data
       - /etc/localtime:/etc/localtime:ro
     ports:
       - "8500:8500/tcp"

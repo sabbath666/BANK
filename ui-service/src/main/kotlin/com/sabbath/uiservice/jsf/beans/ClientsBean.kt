@@ -21,7 +21,7 @@ class ClientsBean {
 
     @PostConstruct
     fun init() {
-        update()
+//        update()
     }
 
     fun update() {
@@ -29,7 +29,7 @@ class ClientsBean {
             clients.clear()
             clients.addAll(userServiceClient.getAllClients())
         } catch (e: Exception) {
-
+            println(e)
         }
     }
 

@@ -44,6 +44,14 @@
     padding-top: 5px;
 }
 
+.wideColumn{
+    width: 80%;
+}
+
+.thinColumn{
+    width: 20%;
+}
+
 .myfieldset {
     display: inline-block;
     background: #faffe3;

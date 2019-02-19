@@ -24,11 +24,11 @@
                 </h:panelGroup>
 
                 <h:panelGrid columns="1" style="border: none;">
-                    <h:outputText value="#{bankBean.balance}" style="font-size: 50px"/>
+                    <h:outputText value="#{bankBean.balance}" style="font-size: 50px" id="out"/>
 
                     <p:commandButton id="updateBtn" value="Обновить"
                                      actionListener="#{bankBean.update}"
-                                     update=":clientsForm :clientsForm:clientsTable"
+                                     update=":registryForm:out"
                                      ajax="false">
                     </p:commandButton>
                 </h:panelGrid>

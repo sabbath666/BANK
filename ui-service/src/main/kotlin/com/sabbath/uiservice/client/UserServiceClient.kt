@@ -12,14 +12,22 @@ class UserServiceClient(
         val restTemplate: RestTemplate
 ) {
     fun getAllClients(): List<Client> {
+        println("GETTING CLIENTS")
         val clients = restTemplate.exchange(
                 "/client/getClients",
                 HttpMethod.GET,
                 null,
                 object : ParameterizedTypeReference<List<Client>>() {}).body
-        clients!!.forEach {
-            it.sum = restTemplate.getForObject("/credit/creditSum/${it.clientId}", Int::class.java)
-        }
+        if (clients!!.isNotEmpty())
+            clients.forEach {
+                try {
+                    it.sum = restTemplate.getForObject("/credit/creditSum/${it.clientId}", Int::class.java)
+                }
+                catch (ex:Exception){
+                    println(ex)
+                }
+            }
+        println("GETTING CLIENTS FINISHED")
         return clients
     }
 

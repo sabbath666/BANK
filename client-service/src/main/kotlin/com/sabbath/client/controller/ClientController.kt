@@ -35,7 +35,15 @@ class ClientController(
     }
 
     @GetMapping("/getClients")
-    fun getUsers(): List<Client> = clientRepository.findAll()
+    fun getUsers(): List<Client> {
+        println("GET CLINETS")
+        val clients = mutableListOf<Client>()
+        val elements = clientRepository.findAll()
+        println("SIZE: " + elements.size)
+        clients.addAll(elements)
+        println("GET CLINETS FINISHED")
+        return clients
+    }
 
     @GetMapping("/testClient")
     fun test(): String? {

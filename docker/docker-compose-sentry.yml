@@ -26,7 +26,7 @@ services:
       - 9009:9009
     environment:
       SENTRY_SECRET_KEY: '!!!SECRET!!!'
-      SENTRY_POSTGRES_HOST: postgres
+      SENTRY_POSTGRES_HOST: pg_postgres
       SENTRY_DB_USER: sentry
       SENTRY_DB_PASSWORD: sentry
       SENTRY_REDIS_HOST: redis
@@ -39,7 +39,7 @@ services:
     command: "sentry run cron"
     environment:
       SENTRY_SECRET_KEY: '!!!SECRET!!!'
-      SENTRY_POSTGRES_HOST: postgres
+      SENTRY_POSTGRES_HOST: pg_postgres
       SENTRY_DB_USER: sentry
       SENTRY_DB_PASSWORD: sentry
       SENTRY_REDIS_HOST: redis

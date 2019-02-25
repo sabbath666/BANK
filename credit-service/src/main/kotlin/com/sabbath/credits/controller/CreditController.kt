@@ -26,11 +26,7 @@ class CreditController(
 
     @GetMapping("/creditSum/{clientId}")
     fun getCreditInfo(@PathVariable clientId: String) =
-            creditsRepository
-                    .findAll()
-                    .filter { it.clientId == clientId && it.status == CreditStatus.APPROVED }
-                    .map { it.sum!! }
-                    .sum()
+            creditsRepository.findAllByStatusIn(CreditStatus.APPROVED).filter { it.clientId.equals(clientId) }.map { it.sum!! }.sum()
 
     @GetMapping("/getCredits")
     fun getCredits() = creditsRepository

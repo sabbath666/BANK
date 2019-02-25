@@ -24,6 +24,7 @@ class ClientController(
 
     @PostMapping("/addClient")
     fun addUser(@RequestBody client: Client): Any? {
+        logger.debug("добавили пользователя $client")
 
 //        when (Random.nextInt(1, 3)) {
 //            1 -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

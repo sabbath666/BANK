@@ -24,13 +24,14 @@ class ClientController(
 
     @PostMapping("/addClient")
     fun addUser(@RequestBody client: Client): Any? {
-        logger.debug("добавили пользователя $client")
+        logger.info("добавили пользователя $client")
 
 //        when (Random.nextInt(1, 3)) {
 //            1 -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 //            2 -> RuntimeException("не получилось добавить клиента")
 //            else -> logger.info("добавление клиента $client")
 //        }
+
         clientRepository.save(client)
         return ResponseEntity.ok("")
     }

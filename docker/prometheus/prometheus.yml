@@ -3,18 +3,16 @@ global:
   evaluation_interval: 5s
 
   external_labels:
-    monitor: 'prometheus-grafana-exporter'
+    monitor: 'prometheus-monitor'
 
 
 rule_files:
   - rules.yml
 
-
 alerting:
   alertmanagers:
     - static_configs:
         - targets: [alertmanager:9093]
-
 
 scrape_configs:
   - job_name: consul

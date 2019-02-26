@@ -184,7 +184,7 @@ services:
     image: prom/alertmanager:v0.15.3
     volumes:
       - ./prometheus/alertmanager.yml:/prometheus/alertmanager.yml
-      - ./prometheus/alertmanager_data:/data
+#      - ./prometheus/alertmanager_data:/data
     command:
       - '--config.file=/prometheus/alertmanager.yml'
       - '--storage.path=/data'

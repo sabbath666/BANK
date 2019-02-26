@@ -14,7 +14,7 @@ Configutation:
   Appenders:
     Gelf:
       - name: "gelf"
-        host: "tcp:localhost"
+        host: "tcp:graylog"
         port: "12201"
         version: "1.1"
         extractStackTrace: "true"
@@ -66,11 +66,11 @@ Configutation:
         - ref: ALL_LOG
         - ref: CONSOLE_LOG
         - ref: gelf
-    Logger:
-      - name: com.sabbath
-        level: debug
-        AppenderRef:
-          - ref: APP_LOG
-            level: debug
-          - ref: gelf
-            level: debug
+#    Logger:
+#      - name: com.sabbath
+#        level: debug
+#        AppenderRef:
+#          - ref: APP_LOG
+#            level: debug
+#          - ref: gelf
+#            level: debug

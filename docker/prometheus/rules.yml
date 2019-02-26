@@ -1,6 +1,6 @@
 groups:
 - name: example
   rules:
-  - alert: InstanceDown
-    expr: up == 0
+  - alert: 'Credit service is down!!'
+    expr: absent(up{job="creditservice"})
     for: 1m

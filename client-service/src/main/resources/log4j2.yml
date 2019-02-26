@@ -71,13 +71,13 @@ Configutation:
         - ref: CONSOLE_LOG
         - ref: gelf
         - ref: sentry
-    Logger:
-      - name: com.sabbath
-        level: debug
-        AppenderRef:
-          - ref: APP_LOG
-            level: debug
-          - ref: gelf
-            level: debug
-          - ref: sentry
-            level: debug
+#    Logger:
+#      - name: com.sabbath
+#        level: debug
+#        AppenderRef:
+#          - ref: APP_LOG
+#            level: debug
+#          - ref: gelf
+#            level: debug
+#          - ref: sentry
+#            level: debug

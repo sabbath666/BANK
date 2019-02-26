@@ -243,7 +243,6 @@ services:
   ################################  node-exporter  ###############################
 
   nodeexporter:
-    network_mode: host
     image: prom/node-exporter:latest
     container_name: nodeexporter
     user: root
@@ -262,8 +261,6 @@ services:
       - 9100
     ports:
       - "9100:9100"
-    networks:
-      - monitor-net
 
 
 

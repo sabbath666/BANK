@@ -9,7 +9,7 @@ receivers:
 #      - to: 'sergeysabbath@gmail.com'
 #        auth_username:
 #        auth_identity:
-#        auth_password: 
+#        auth_password:
   - name: PagerDuty
     pagerduty_configs:
     - service_key: 'a3670daa37084d4a86b42a169638e9fd'

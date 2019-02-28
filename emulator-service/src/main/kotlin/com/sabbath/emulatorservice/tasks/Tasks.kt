@@ -17,7 +17,7 @@ class Tasks(
         Sentry.init("http://4aab3cb2ac70479ba33eeb4f4fdba1b8@localhost:9010/2")
     }
 
-    @Scheduled(fixedDelay = 1000)
+    @Scheduled(fixedDelay = 3000)
     fun addClient() {
         println("===> add random client")
         try {
@@ -28,7 +28,7 @@ class Tasks(
         }
     }
 
-    @Scheduled(fixedDelay = 1000)
+    @Scheduled(fixedDelay = 5000)
     fun addCredit() {
         println("===> add random credit")
         creditServiceClient.addRandomCredit()

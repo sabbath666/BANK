@@ -12,18 +12,18 @@ spring:
 #        format: yaml
 #    config:
 #      enabled: false
-#management:
-#  endpoint:
-#    prometheus:
-#      enabled: true
-#    metrics:
-#      enabled: true
-#
-#  endpoints:
-#    web:
-#      exposure:
-#        include: '*'
-#
+management:
+  endpoint:
+    prometheus:
+      enabled: true
+    metrics:
+      enabled: true
+
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
 #metrics:
 #  web:
 #    server:

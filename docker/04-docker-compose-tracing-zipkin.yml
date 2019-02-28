@@ -20,6 +20,7 @@ services:
     ports:
       - 8888:8888
     environment:
+      SPRING_ZIPKIN_BASE-URL: http://zipkin:9411
       SPRING_CLOUD_CONSUL_HOST: consul
     volumes:
       - /etc/localtime:/etc/localtime:ro
@@ -44,6 +45,7 @@ services:
     image: sabbath666/ui-service
     container_name: ui-service
     environment:
+      SPRING_ZIPKIN_BASE-URL: http://zipkin:9411
       SERVER_PORT: 9999
       SPRING_CLOUD_CONSUL_HOST: consul
       GATEWAY_URI: http://gateway-service:8888/api/v1
@@ -58,6 +60,7 @@ services:
     container_name: client-service
     environment:
       SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_ZIPKIN_BASE-URL: http://zipkin:9411
       SPRING_PROFILES_ACTIVE: test
       GATEWAY_URI: http://gateway:8888/api/v1
     volumes:
@@ -69,6 +72,7 @@ services:
     container_name: bank-service
     environment:
       SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_ZIPKIN_BASE-URL: http://zipkin:9411
       SPRING_PROFILES_ACTIVE: test
       GATEWAY_URI: http://gateway:8888/api/v1
     volumes:
@@ -80,6 +84,7 @@ services:
     container_name: credit-service
     environment:
       SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_ZIPKIN_BASE-URL: http://zipkin:9411
       SPRING_PROFILES_ACTIVE: test
       GATEWAY_URI: http://gateway:8888/api/v1
     volumes:
@@ -91,6 +96,7 @@ services:
     container_name: check-service
     environment:
       SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_ZIPKIN_BASE-URL: http://zipkin:9411
       SPRING_PROFILES_ACTIVE: test
       GATEWAY_URI: http://gateway:8888/api/v1
     volumes:
@@ -228,16 +234,16 @@ services:
 
   ##################################   alerting   ###############################
 
-  alertmanager:
-    image: prom/alertmanager:v0.15.3
-    volumes:
-      - ./prometheus/alertmanager.yml:/prometheus/alertmanager.yml
-      - ./prometheus/alertmanager_data:/data
-    command:
-      - '--config.file=/prometheus/alertmanager.yml'
-      - '--storage.path=/data'
-    ports:
-      - 9093:9093
+#  alertmanager:
+#    image: prom/alertmanager:v0.15.3
+#    volumes:
+#      - ./prometheus/alertmanager.yml:/prometheus/alertmanager.yml
+#      - ./prometheus/alertmanager_data:/data
+#    command:
+#      - '--config.file=/prometheus/alertmanager.yml'
+#      - '--storage.path=/data'
+#    ports:
+#      - 9093:9093
 
 
 

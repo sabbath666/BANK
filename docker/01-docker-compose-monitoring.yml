@@ -8,7 +8,6 @@ services:
     image: sabbath666/consul-server
     container_name: consul
     volumes:
-      - ./consul/data:/data
       - /etc/localtime:/etc/localtime:ro
     ports:
       - "8500:8500"
@@ -86,17 +85,6 @@ services:
       - /etc/localtime:/etc/localtime:ro
     restart: always
 
-  check-service:
-    image: sabbath666/check-service
-    container_name: check-service
-    environment:
-      SPRING_CLOUD_CONSUL_HOST: consul
-      SPRING_PROFILES_ACTIVE: test
-      GATEWAY_URI: http://gateway:8888/api/v1
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-    restart: always
-
   ################################   monitoring   ###############################
 
   prometheus:
@@ -105,7 +93,7 @@ services:
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - ./prometheus/rules.yml:/etc/prometheus/rules.yml
-      - ./prometheus/prometheus_data:/prometheus
+#      - ./prometheus/prometheus_data:/prometheus
       - /etc/localtime:/etc/localtime:ro
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -124,7 +112,7 @@ services:
       - "5434:5432"
     container_name: prometheusdb
     volumes:
-      - ./prometheus/prometheusdb:/var/lib/postgresql/data
+#      - ./prometheus/prometheusdb:/var/lib/postgresql/data
       - /etc/localtime:/etc/localtime:ro
     restart: always
     environment:

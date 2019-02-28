@@ -6,7 +6,7 @@ services:
     image: sabbath666/consul-server
     container_name: consul
     volumes:
-      - ./consul/data:/data
+#      - ./consul/data:/data
       - /etc/localtime:/etc/localtime:ro
     ports:
       - "8500:8500"
@@ -61,17 +61,6 @@ services:
   credit-service:
     image: sabbath666/credit-service
     container_name: credit-service
-    environment:
-      SPRING_CLOUD_CONSUL_HOST: consul
-      SPRING_PROFILES_ACTIVE: test
-      GATEWAY_URI: http://gateway:8888/api/v1
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-    restart: always
-
-  check-service:
-    image: sabbath666/check-service
-    container_name: check-service
     environment:
       SPRING_CLOUD_CONSUL_HOST: consul
       SPRING_PROFILES_ACTIVE: test

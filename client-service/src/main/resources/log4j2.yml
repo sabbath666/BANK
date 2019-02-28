@@ -1,27 +1,23 @@
 Configutation:
-  packages: "biz.paluch.logging.gelf.log4j2, org.apache.logging.log4j.core,io.sentry.log4j2"
+  packages: "biz.paluch.logging.gelf.log4j2"
   status: warn
 
   Properties:
     Property:
       - name: log-path
-        value: "logs/users-service"
+        value: "logs/client-service"
       - name: log-archive
         value: ${log-path}/archive
       - name: log-pattern
         value: "[%date{ISO8601}][%-5level][%thread][%class.%method] %message%n"
 
   Appenders:
-    Sentry:
-      - name: "sentry"
-
     Gelf:
       - name: "gelf"
         host: "tcp:graylog"
         port: "12201"
         version: "1.1"
         extractStackTrace: "true"
-        filterStackTrace: "true"
         Field:
           - name: "timestamp"
             pattern: "%d{dd MMM yyyy HH:mm:ss,SSS}"
@@ -70,7 +66,6 @@ Configutation:
         - ref: ALL_LOG
         - ref: CONSOLE_LOG
         - ref: gelf
-        - ref: sentry
 #    Logger:
 #      - name: com.sabbath
 #        level: debug
@@ -78,6 +73,4 @@ Configutation:
 #          - ref: APP_LOG
 #            level: debug
 #          - ref: gelf
-#            level: debug
-#          - ref: sentry
 #            level: debug

@@ -12,10 +12,8 @@
 
     <modules>
         <module>gateway-service</module>
-        <module>config-service</module>
         <module>client-service</module>
         <module>credit-service</module>
-        <module>check-service</module>
         <module>bank-service</module>
         <module>ui-service</module>
         <module>emulator-service</module>

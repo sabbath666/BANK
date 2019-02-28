@@ -1,15 +1,6 @@
-global:
-  smtp_smarthost: 'smtp.gmail.com:587'
-  smtp_from: 'sergeysabbath@gmail.com'
 route:
   receiver: PagerDuty
 receivers:
-#  - name: example
-#    email_configs:
-#      - to: 'sergeysabbath@gmail.com'
-#        auth_username:
-#        auth_identity:
-#        auth_password:
   - name: PagerDuty
     pagerduty_configs:
     - service_key: 'a3670daa37084d4a86b42a169638e9fd'

@@ -8,8 +8,6 @@ import org.springframework.context.annotation.Configuration
 class SentryConfig {
 
 
-
-
 }
 
 class MyResolver : SentryExceptionResolver() {

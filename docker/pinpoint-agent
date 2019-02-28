@@ -1,3 +1,0 @@
--javaagent:/home/sabbath/pinpoint/pinpoint-bootstrap-1.8.1.jar
--Dpinpoint.applicationName=bank-service
--Dpinpoint.agentId=1

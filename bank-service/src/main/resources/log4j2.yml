@@ -1,16 +1,37 @@
 Configutation:
+  packages: "biz.paluch.logging.gelf.log4j2"
   status: warn
 
   Properties:
     Property:
       - name: log-path
-        value: "logs/users-service"
+        value: "logs/bank-service"
       - name: log-archive
         value: ${log-path}/archive
       - name: log-pattern
         value: "[%date{ISO8601}][%-5level][%thread][%class.%method] %message%n"
 
   Appenders:
+    Gelf:
+      - name: "gelf"
+        host: "tcp:graylog"
+        port: "12201"
+        version: "1.1"
+        extractStackTrace: "true"
+        Field:
+          - name: "timestamp"
+            pattern: "%d{dd MMM yyyy HH:mm:ss,SSS}"
+          - name: "level"
+            pattern: "%level"
+          - name: "simpleClassName"
+            pattern: "%C{1}"
+          - name: "className"
+            pattern: "%C"
+          - name: "server"
+            pattern: "%host"
+          - name: "server.fqdn"
+            pattern: "%host{fqdn}"
+
     RollingFile:
       - name: ALL_LOG
         fileName: ${log-path}/all.log
@@ -44,9 +65,12 @@ Configutation:
       AppenderRef:
         - ref: ALL_LOG
         - ref: CONSOLE_LOG
-    Logger:
-      - name: com.sabbath
-        level: debug
-        AppenderRef:
-          - ref: APP_LOG
-            level: debug
+        - ref: gelf
+#    Logger:
+#      - name: com.sabbath
+#        level: debug
+#        AppenderRef:
+#          - ref: APP_LOG
+#            level: debug
+#          - ref: gelf
+#            level: debug

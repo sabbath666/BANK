@@ -34,13 +34,6 @@ spring:
           filters:
             - RewritePath=/api/v1/credit/(?<path>.*), /$\{path}
 
-        - id: check-service-route
-          uri: 'lb://checkservice'
-          predicates:
-            - 'Path=/api/v1/check/**'
-          filters:
-            - RewritePath=/api/v1/check/(?<path>.*), /$\{path}
-
         - id: bank-service-route
           uri: 'lb://bankservice'
           predicates:

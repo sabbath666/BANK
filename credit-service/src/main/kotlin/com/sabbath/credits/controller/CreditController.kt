@@ -4,11 +4,13 @@ import com.sabbath.credits.dto.CreditRequest
 import com.sabbath.credits.jpa.Credit
 import com.sabbath.credits.jpa.CreditStatus
 import com.sabbath.credits.jpa.CreditsRepository
+import io.micrometer.core.annotation.Timed
 import org.springframework.web.bind.annotation.*
 
 private val logger = mu.KotlinLogging.logger { }
 
 @RestController
+@Timed
 class CreditController(
         val creditsRepository: CreditsRepository
 ) {
